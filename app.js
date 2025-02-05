@@ -1,39 +1,50 @@
-// El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
-const amigos = [];
+// Array para almacenar los nombres
+let amigos = [];
 
+// Conectar los botones con sus funciones cuando la página cargue
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("btnAgregar").addEventListener("click", agregarAmigo);
+    document.getElementById("btnSortear").addEventListener("click", sortearAmigo);
+});
+
+// Función para agregar amigos a la lista
 function agregarAmigo() {
-    const input = document.getElementById("nombreAmigo");
-    const nombre = input.value.trim();
-    
+    let input = document.getElementById("nombreAmigo"); 
+    let nombre = input.value.trim(); 
+
     if (nombre === "") {
-        alert("Por favor, ingresa un nombre válido.");
+        alert("Por favor, inserte un nombre.");
         return;
     }
-    
+
     amigos.push(nombre);
-    input.value = "";
+    input.value = ""; 
+
     actualizarLista();
 }
 
+// Función para actualizar la lista en el HTML
 function actualizarLista() {
-    const lista = document.getElementById("listaAmigos");
-    lista.innerHTML = "";
-    
-    amigos.forEach((amigo, index) => {
-        const li = document.createElement("li");
+    let lista = document.getElementById("listaAmigos");
+    lista.innerHTML = ""; 
+
+    for (let amigo of amigos) {
+        let li = document.createElement("li");
         li.textContent = amigo;
         lista.appendChild(li);
-    });
+    }
 }
 
+// Función para sortear un amigo
 function sortearAmigo() {
     if (amigos.length === 0) {
-        alert("La lista está vacía. Agrega al menos un amigo para sortear.");
+        alert("No hay amigos en la lista para sortear.");
         return;
     }
-    
-    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
-    const amigoSecreto = amigos[indiceAleatorio];
-    
-    document.getElementById("resultado").textContent = `El amigo secreto es: ${amigoSecreto}`;
+
+    let indiceAleatorio = Math.floor(Math.random() * amigos.length);
+    let amigoSorteado = amigos[indiceAleatorio];
+
+    document.getElementById("resultadoSorteo").innerHTML = 
+        `🎉 El amigo secreto es: <strong>${amigoSorteado}</strong> 🎉`;
 }
